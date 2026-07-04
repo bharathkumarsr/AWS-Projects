@@ -1,19 +1,27 @@
-User
-   |
-Internet
-   |
-EC2 (RHEL)
-   |
-Docker
-   |
-NGINX Container
-   |
-S3 Bucket
-   |
-RDS PostgreSQL
-
-Monitoring:
-CloudWatch
-CloudTrail
-SNS
-IAM
+                        IAM
+                         │
+         ┌───────────────┼───────────────┐
+         │                               │
+      Users                          Roles
+                                         │
+                                         ▼
+                                 EC2 (Docker)
+                                         │
+                              ┌──────────┴─────────┐
+                              │                    │
+                              ▼                    ▼
+                             S3                 RDS
+                              │                    │
+                              └────────┬───────────┘
+                                       ▼
+                                CloudWatch
+                                       │
+                          ┌────────────┴───────────┐
+                          ▼                        ▼
+                     CloudTrail                 Alarms
+                                                   │
+                                                   ▼
+                                                  SNS
+                                                   │
+                                                   ▼
+                                                 Email
