@@ -3,18 +3,38 @@
 ## Architecture Diagram
 
 ```text
-                 Amazon EventBridge
-                          |
-                          v
-                    AWS Lambda
-                          |
-                ------------------
-                |        |       |
-                v        v       v
-             AWS IAM    S3      SNS
-                          |
-                          v
-                    CloudWatch
+                 AUTOMATED AWS IAM AUDIT & COMPLIANCE
+
+                           EventBridge
+                         (rate: 1 day)
+                                |
+                                v
+                     +-------------------+
+                     |    AWS Lambda     |
+                     |     IAM-Audit     |
+                     +-------------------+
+                                |
+            +-------------------+-------------------+
+            |                   |                   |
+            v                   v                   v
+        AWS IAM             Amazon SNS         Amazon S3
+      (Audited)              (Alerts)          (Reports)
+            |
+            |
+            v
+      Amazon CloudWatch
+          (Logs)
+
+---------------------------------------------------------
+✓ MFA Audit
+✓ Admin Access Detection
+✓ Access Key Audit
+✓ Event Driven
+✓ Serverless
+✓ Automated Compliance
+---------------------------------------------------------
+
+              
 ```
 
 ---
