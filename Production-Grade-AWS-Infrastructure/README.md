@@ -448,7 +448,3 @@ CloudWatch continuously monitors EC2 instances, and the Auto Scaling Group maint
 **Bharath Kumar S R**
 
 DevOps Engineer
-
-GitHub: https://github.com/<your-github>
-
-LinkedIn: https://linkedin.com/in/<your-linkedin>
