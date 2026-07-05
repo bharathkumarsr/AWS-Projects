@@ -1,8 +1,6 @@
-# 🚀 Enterprise AWS DevOps Monitoring & Observability Project
+# Enterprise AWS DevOps Monitoring & Observability Project
 
-<div align="center">
-
-# Enterprise AWS DevOps Monitoring Project
+## Enterprise AWS DevOps Monitoring Project
 
 ### Designed & Implemented by
 # 👨‍💻 Bharath Kumar S R
@@ -71,4 +69,3 @@ The goal of this project is to simulate how a DevOps Engineer deploys, secures, 
 
 ---
 
-# 📂 Project Structure
