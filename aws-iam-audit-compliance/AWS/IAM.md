@@ -1,85 +1,248 @@
-# AWS Identity and Access Management (IAM)
+# File: IAM.md
 
-## Overview
+# AWS IAM (Identity and Access Management)
 
-AWS Identity and Access Management (IAM) is the primary service used in this project to audit and secure AWS identities, permissions, and access controls.
+## Service Purpose
 
-The purpose of this project is to automate IAM security auditing and identify potential security risks and compliance violations.
+AWS IAM is used to securely manage identities, authentication, authorization, and permissions within an AWS account.
 
----
+In this project, IAM serves two purposes:
 
-## Why IAM Was Used
-
-AWS IAM allows organizations to:
-
-* Create and manage AWS users
-* Create IAM roles
-* Assign permissions
-* Implement least privilege access
-* Enforce security policies
-* Enable Multi-Factor Authentication (MFA)
-
-This project uses IAM to automatically validate security posture and compliance.
+1. The target of the security audit.
+2. The authorization layer that enables Lambda to perform IAM compliance checks.
 
 ---
 
-## What Was Implemented
+# Why IAM Was Used
 
-The following IAM components were audited:
+The goal of this project is to automate IAM security compliance validation.
 
-### IAM Users
+The Lambda function audits:
 
-* User enumeration
-* MFA validation
-* Console access verification
-* Access key auditing
+* IAM users
+* MFA status
+* AdministratorAccess privileges
+* Access key age
+* Password policy compliance
 
-### IAM Roles
+This helps identify security risks such as:
 
-* Role inventory
-* Unused role identification
-* Permission validation
-
-### IAM Policies
-
-* Attached policy analysis
-* Administrative access detection
-* Wildcard permission detection
-
-### Account Security
-
-* Password policy validation
-* Root account security checks
+* Users without MFA
+* Excessive privileges
+* Long-lived credentials
+* Non-compliant access controls
 
 ---
 
-## Technical Implementation
+# IAM Users Created
 
-Python Boto3 APIs used:
+## developer-test
 
-```python
-iam.list_users()
-iam.list_roles()
-iam.list_access_keys()
-iam.list_mfa_devices()
-iam.get_account_password_policy()
-iam.list_attached_user_policies()
+Purpose:
+
+* Test user for MFA compliance validation.
+
+Configuration:
+
+* MFA: Disabled
+* AdministratorAccess: No
+* Access Keys: Not configured
+
+---
+
+## admin-test
+
+Purpose:
+
+* Test user for privilege escalation detection.
+
+Configuration:
+
+* MFA: Disabled
+* AdministratorAccess: Enabled
+* Access Keys: Configured
+
+---
+
+# IAM Execution Role
+
+Role Name:
+
+```text
+Lambda-IAM-Audit-Role
+```
+
+Trusted Entity:
+
+```json
+{
+  "Version":"2012-10-17",
+  "Statement":[
+    {
+      "Effect":"Allow",
+      "Principal":{
+        "Service":"lambda.amazonaws.com"
+      },
+      "Action":"sts:AssumeRole"
+    }
+  ]
+}
 ```
 
 ---
 
-## Security Checks
+# Attached Policies
 
-* Users without MFA
-* Users with AdministratorAccess
-* Access keys older than 90 days
-* Password policy violations
-* Unused IAM users
-* Unused IAM roles
-* Root account activity
+## AWS Managed Policy
+
+```text
+AWSLambdaBasicExecutionRole
+```
+
+Purpose:
+
+Allows Lambda to:
+
+* Create CloudWatch Log Groups
+* Create CloudWatch Log Streams
+* Write CloudWatch Logs
 
 ---
 
-## Outcome
+## Custom Policy
 
-AWS IAM auditing was fully automated to improve security visibility and compliance monitoring.
+Policy Name:
+
+```text
+IAM-Audit-Lambda-Policy
+```
+
+Policy JSON:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "IAMAuditPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListUsers",
+                "iam:ListRoles",
+                "iam:ListMFADevices",
+                "iam:ListAccessKeys",
+                "iam:GetAccountPasswordPolicy",
+                "iam:ListAttachedUserPolicies",
+                "iam:GetUser"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "S3Permissions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::iam-audit-reports-bharath-796231892525-ap-south-1-an",
+                "arn:aws:s3:::iam-audit-reports-bharath-796231892525-ap-south-1-an/*"
+            ]
+        },
+        {
+            "Sid": "SNSPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "sns:Publish"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudWatchPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+---
+
+# Security Principle Used
+
+This project follows the:
+
+```text
+Principle of Least Privilege (PoLP)
+```
+
+The Lambda function only receives permissions required for:
+
+* IAM auditing
+* S3 uploads
+* SNS notifications
+* CloudWatch logging
+
+AdministratorAccess was intentionally avoided.
+
+---
+
+# IAM Compliance Checks Implemented
+
+## MFA Validation
+
+API Used:
+
+```python
+iam.list_mfa_devices()
+```
+
+Validation:
+
+```text
+MFA Enabled ?
+    YES -> Compliant
+    NO  -> Generate SNS Alert
+```
+
+---
+
+## AdministratorAccess Detection
+
+API Used:
+
+```python
+iam.list_attached_user_policies()
+```
+
+Validation:
+
+```text
+AdministratorAccess attached ?
+    YES -> Critical Alert
+    NO  -> Compliant
+```
+
+---
+
+## Access Key Audit
+
+API Used:
+
+```python
+iam.list_access_keys()
+```
+
+Validation:
+
+```text
+Access Key Age > 90 Days ?
+    YES -> Compliance Alert
+    NO  -> Compliant
+```
