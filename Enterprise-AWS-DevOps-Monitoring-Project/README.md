@@ -1,29 +1,79 @@
-# Enterprise AWS DevOps Project
+# 🚀 Enterprise AWS DevOps Monitoring & Observability Project
 
-## Project Overview
+<div align="center">
 
-## Architecture
+# Enterprise AWS DevOps Monitoring Project
 
-## Services Used
-- IAM
-- EC2
-- Docker
-- S3
-- RDS
-- CloudTrail
-- CloudWatch
-- SNS
+### Designed & Implemented by
+# 👨‍💻 Bharath Kumar S R
 
-## Implementation Steps
+Production-style AWS infrastructure implementing:
+EC2 • Docker • NGINX • IAM • S3 • RDS • CloudWatch • SNS • CloudTrail
 
-## Security Features
+</div>
 
-## Monitoring and Alerting
+---
 
-## Auditing
+# 📌 Project Overview
 
-## Screenshots
+This project demonstrates the implementation of a production-style AWS DevOps environment designed for:
 
-## Interview Questions and Answers
+- Infrastructure deployment
+- Containerized application hosting
+- Identity and Access Management
+- Storage management
+- Database provisioning
+- Monitoring and observability
+- Alerting and notifications
+- Auditing and compliance
 
-## Future Enhancements
+The goal of this project is to simulate how a DevOps Engineer deploys, secures, monitors, and manages workloads in an enterprise AWS environment.
+
+---
+
+# 🎯 Project Objectives
+
+✔ Deploy secure AWS infrastructure
+
+✔ Configure IAM Roles and Policies
+
+✔ Deploy Dockerized application
+
+✔ Implement object storage using S3
+
+✔ Provision managed PostgreSQL database
+
+✔ Configure centralized monitoring
+
+✔ Configure alerting mechanism
+
+✔ Enable audit logging
+
+✔ Demonstrate production DevOps practices
+
+---
+
+# 🏗 Architecture Diagram
+
+![Architecture](architecture/enterprise-aws-devops-architecture.png)
+
+---
+
+# ☁ AWS Services Used
+
+| AWS Service | Purpose |
+|------------|---------|
+| IAM | Identity & Access Management |
+| EC2 | Application Hosting |
+| Docker | Containerization |
+| NGINX | Web Server |
+| Amazon S3 | Object Storage |
+| Amazon RDS PostgreSQL | Managed Database |
+| CloudWatch | Monitoring |
+| CloudWatch Alarms | Alerting |
+| SNS | Notifications |
+| CloudTrail | Auditing |
+
+---
+
+# 📂 Project Structure
