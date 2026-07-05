@@ -17,6 +17,7 @@ Stores execution logs and audit trails.
 ## Permissions:
 
 ```
+{
     "Effect":"Allow",
     "Action":[
         "logs:CreateLogGroup",
@@ -24,4 +25,5 @@ Stores execution logs and audit trails.
         "logs:PutLogEvents"
     ],
     "Resource":"*"
+}
 ```
