@@ -53,11 +53,6 @@ The goal of this project is to simulate how a DevOps Engineer deploys, secures, 
 
 ---
 
-# 🏗 Architecture Diagram
-
-![Architecture](Enterprise-AWS-DevOps-Monitoring-Project/Aechitecture/Enterprise AWS Devops Monitoring .png)
-
----
 
 # ☁ AWS Services Used
 
