@@ -39,6 +39,22 @@
 
 ---
 
+## Project Purpose
+
+* Automate AWS IAM security audits and compliance checks.
+* Eliminate manual IAM user validation processes.
+* Detect IAM users without Multi-Factor Authentication (MFA).
+* Identify users with excessive privileges (AdministratorAccess).
+* Audit IAM access keys and validate credential hygiene.
+* Generate automated compliance reports in Amazon S3.
+* Send real-time security alerts using Amazon SNS.
+* Enable continuous monitoring through Amazon EventBridge Scheduler.
+* Maintain centralized audit logs using Amazon CloudWatch.
+* Implement AWS security best practices and the Principle of Least Privilege (PoLP).
+* Demonstrate practical AWS Security, Serverless, and DevSecOps skills.
+* Build a production-style automated compliance monitoring solution.
+
+
 ## Workflow
 
 1. EventBridge triggers Lambda.
