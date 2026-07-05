@@ -21,6 +21,8 @@ sns.publish()
 
 ## Generated Alerts:
 
-MFA Disabled
-Administrator Access
-Old Access Keys
+* MFA Disabled
+* Administrator Access
+* Old Access Keys
+
+---
