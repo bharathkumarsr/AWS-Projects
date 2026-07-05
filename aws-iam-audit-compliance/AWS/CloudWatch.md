@@ -14,9 +14,9 @@ Stores execution logs and audit trails.
 
 /aws/lambda/IAM-Audit
 
-Permissions:
+## Permissions:
 
-{
+```
     "Effect":"Allow",
     "Action":[
         "logs:CreateLogGroup",
@@ -24,4 +24,4 @@ Permissions:
         "logs:PutLogEvents"
     ],
     "Resource":"*"
-}
+```
